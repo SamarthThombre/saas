@@ -1,34 +1,31 @@
 "use client"
 
-import React,{useEffect, useState, useRef} from 'react'
-import { CldImage } from 'next-cloudinary'
+import React, {useState, useEffect, useRef} from 'react'
+import { CldImage } from 'next-cloudinary';
 
 const socialFormats = {
-  "Instagram Squre (1:1)": {width: 1080,height: 1080,aspectRatio: "1:1",},
-  "Instagram Portrait (4:5)": {width: 1080,height: 1350,aspectRatio: "4:5",},
-  "Twitter Post (16:9)": {width: 1200,height: 675,aspectRatio: "16:9",},
-  "Twitter Header (3:1)": {width: 1500,height: 500,aspectRatio: "3:1",},
-  "Facebook Cover (205:78)": {width: 820,height: 312,aspectRatio: "205:78",},
+  "Instagram Square (1:1)": { width: 1080, height: 1080, aspectRatio: "1:1" },
+  "Instagram Portrait (4:5)": { width: 1080, height: 1350, aspectRatio: "4:5" },
+  "Twitter Post (16:9)": { width: 1200, height: 675, aspectRatio: "16:9" },
+  "Twitter Header (3:1)": { width: 1500, height: 500, aspectRatio: "3:1" },
+  "Facebook Cover (205:78)": { width: 820, height: 312, aspectRatio: "205:78" }
 }
 
-type SocialFormats = keyof typeof socialFormats
-
- 
+type SocialFormat = keyof typeof socialFormats;
 
 export default function SocialShare() {
-  const [uploadedImages, setUploadedImages] = useState<string | null>(null);
-  const [selectedFormat, setSelectedFormat] = useState<SocialFormats>("Instagram Squre (1:1)");
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [selectedFormat, setSelectedFormat] = useState<SocialFormat>("Instagram Square (1:1)");
   const [isUploading, setIsUploading] = useState(false);
   const [isTransforming, setIsTransforming] = useState(false);
   const imageRef = useRef<HTMLImageElement>(null);
 
 
   useEffect(() => {
-    if (uploadedImages) {
-      setIsTransforming(true);
-    }
-  }, [uploadedImages,selectedFormat]);
-
+      if (uploadedImage) {
+        setIsTransforming(true);
+      }
+  }, [uploadedImage, selectedFormat]);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
